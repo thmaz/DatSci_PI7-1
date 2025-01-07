@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import re
 import numpy as np
 import ast
+
 # from sklearn.impute import KNNImputer
 
 conn = lite.connect('cycling_big.db')
@@ -83,8 +84,6 @@ races_df['Time_seconds'] = races_df['Time'].apply(time_to_seconds)
 print(races_df[['Time', 'Time_seconds']].head(10))
 races_df.info()
 
-
-
 """
 Converting timelag to total seconds
 """
@@ -124,6 +123,7 @@ print(races_df[['Timelag', 'Timelag_seconds']].head(10))
 Converting distance into single numerical value
 This means stripping 'km' from string and converting the remaining values into float64
 """
+
 races_df['Length'] = races_df['Length'].str.replace(' km', '', regex=False)
 
 # Convert to numeric and replace 0 with NaN
@@ -132,7 +132,10 @@ races_df['Length'] = pd.to_numeric(races_df['Length'], errors='coerce')  # Conve
 # Replace 0 values with NaN
 races_df['Length'] = races_df['Length'].replace(0.0, np.nan)
 
-print(races_df['Length'])
+# print(races_df['Length'])
 
+"""
+Imputating data
+"""
 
 print("done")
